@@ -19,6 +19,9 @@
       <div class="col">
           {{game.players[1].name}}
           <img @click="setOppCard(this.$store.state.oppCard)" :src="'https://robohash.org/3a3ca071-c281-4b15-9336-8b2c3ae8992b?set=set2'">
+          <div class="opp-card" v-for="oppCard in oppCards" :key="oppCard.name">
+            {{oppCard.name}}
+        </div>
       </div>
     </div>
   </div>
@@ -32,7 +35,7 @@ export default {
   name: "GameBoard",
   data() {
     return {
-      gameConfig: {}
+      
     };
   },
   mounted() {
@@ -41,24 +44,22 @@ export default {
   methods: {
     
     startGame() {
+      let gameConfig = {
+        oppCards: this.oppCards,
+        playerCards: this.playerCards
+      }
       this.$store.dispatch("startGame", this.gameConfig);
-    },
-  //   setOppCard(card) {
-  //     this.oppCard = card;
-  //   },
-  //   setPlayerCard(card) {
-  //     this.playerCard = card;
-  //   }
+    }
   },
   computed: {
     game() {
       return this.$store.state.game;
     }
+  },
+  components: {
+    OppCards,
+    PlayerCards
   }
-  // components: {
-  //   OppCards,
-  //   PlayerCards
-  // }
 
 }
 

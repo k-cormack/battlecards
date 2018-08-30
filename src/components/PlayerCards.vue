@@ -19,7 +19,7 @@ export default {
 
     computed: {
         playerCards() {
-            return this.$store.state.game.players[1].hand
+            return this.$store.state.game.players[0].hand
         }
     },
     methods: {

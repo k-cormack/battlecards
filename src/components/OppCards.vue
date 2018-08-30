@@ -1,5 +1,8 @@
 <template>
     <div class="opponent-cards">
+        <!-- <div class="opp-card" v-for="oppCard in oppCards" :key="oppCard.name">
+            {{oppCard.name}}
+        </div> -->
         
 
     </div>
