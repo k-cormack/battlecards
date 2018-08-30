@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+// @ts-ignore
+import BattleCards from './views/BattleCards.vue'
 
 Vue.use(Router)
 
@@ -8,8 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'battleCards',
+      component: BattleCards
     
     }
   ]

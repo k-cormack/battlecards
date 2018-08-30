@@ -1,5 +1,5 @@
 <template>
-  <div class="gameBoard">
+  <div class="gameBoard container">
     <div v-if="!game.id">
       <h1>Create a Game</h1>
       <form @submit.prevent="startGame">
@@ -9,36 +9,59 @@
         <button type="submit">Go</button>
       </form>
     </div>
-    <div v-if="game.id">
-      {{game.players[0].name}}
+    <div v-if="game.id" class="row">
+      <div class="col">
+      
+        {{game.players[0].name}}
+        <img @click="setPlayerCard(card)" :src="'https://robohash.org/3a3ca071-c281-4b15-9336-8b2c3ae8992b?set=set1'">
+
+      </div>
+      <div class="col">
+          {{game.players[1].name}}
+          <img @click="setOppCard(this.$store.state.oppCard)" :src="'https://robohash.org/3a3ca071-c281-4b15-9336-8b2c3ae8992b?set=set2'">
+      </div>
     </div>
-    
   </div>
 </template>
 
 <script>
+import OppCards from "@/components/OppCards";
+import PlayerCards from "@/components/PlayerCards";
+
 export default {
-  name: 'GameBoard',
+  name: "GameBoard",
   data() {
     return {
       gameConfig: {}
     };
   },
-  mounted(){
-    this.$store.dispatch('getGame')
+  mounted() {
+    this.$store.dispatch("getGame");
   },
   methods: {
-    startGame(){
-      this.$store.dispatch('startGame', this.gameConfig)
-    }
+    
+    startGame() {
+      this.$store.dispatch("startGame", this.gameConfig);
+    },
+  //   setOppCard(card) {
+  //     this.oppCard = card;
+  //   },
+  //   setPlayerCard(card) {
+  //     this.playerCard = card;
+  //   }
   },
   computed: {
-    game(){
-      return this.$store.state.game
+    game() {
+      return this.$store.state.game;
     }
   }
-  
+  // components: {
+  //   OppCards,
+  //   PlayerCards
+  // }
+
 }
+
 </script>
 
 

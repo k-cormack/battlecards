@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="battle-cards">
     <img alt="Vue logo" src="../assets/logo.png">
-    <GameBoard msg="Welcome to BATTLE-CARDS!"/>
+    <GameBoard />
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import GameBoard from '@/components/GameBoard.vue'
 
 export default {
-  name: 'home',
+  name: 'battleCards',
   components: {
     GameBoard
   }
