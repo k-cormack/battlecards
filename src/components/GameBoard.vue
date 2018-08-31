@@ -4,8 +4,8 @@
       <h1>Create a Game</h1>
       <form @submit="startGame">
         <input type="text" v-model="gameConfig.playerName" placeholder="Name" required>
-        <input type="number" v-model="gameConfig.opponents" min="1" max="1" required>
-        <input type="number" v-model="gameConfig.set" min="1" max="4" required>
+        <input type="number" v-model="gameConfig.opponents" placeholder="Opp." min="1" max="1" required>
+        <input type="number" v-model="gameConfig.set" placeholder="Deck" min="1" max="4" required>
         <button type="submit">Go</button>
       </form>
     </div>
