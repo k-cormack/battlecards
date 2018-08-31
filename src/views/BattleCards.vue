@@ -1,6 +1,6 @@
 <template>
   <div class="battle-cards">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <GameBoard />
   </div>
 </template>

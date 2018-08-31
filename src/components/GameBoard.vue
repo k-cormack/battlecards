@@ -9,22 +9,21 @@
         <button type="submit">Go</button>
       </form>
     </div>
-    <div v-if="game.id" class="row">
-      <div class="col">
-      
-        {{game.players[0].name}}
-        <img @click="setPlayerCard(card)" :src="'https://robohash.org/3a3ca071-c281-4b15-9336-8b2c3ae8992b?set=set1'">
-
-      </div>
-      <div class="col">
-          {{game.players[1].name}}
-          <img @click="setOppCard(this.$store.state.oppCard)" :src="'https://robohash.org/3a3ca071-c281-4b15-9336-8b2c3ae8992b?set=set2'">
-          <div class="opp-card" v-for="oppCard in oppCards" :key="oppCard.name">
-            {{oppCard.name}}
-        </div>
-      </div>
+    <div v-if="game.id">
+          <OppCards/>
+        <!-- {{game.players[0].name}} -->        
     </div>
+    <div v-if="game.id">
+          <!-- {{game.players[1].name}} -->                    
+          <PlayerCards/>      
+    </div>
+     <div v-if="playerCardId && opponentCardId">
+                <button @click="attackOpponent">Play your Card</button>
+            </div>
+    
   </div>
+    
+  
 </template>
 
 <script>
@@ -35,12 +34,19 @@ export default {
   name: "GameBoard",
   data() {
     return {
-      
+      gameConfig: {
+        playerName: this.playerName,
+        opponents: this.opponents,
+        set: this.set
+      }      
     };
   },
   mounted() {
     this.$store.dispatch("getGame");
-  },
+    this.$store.dispatch("setGameId");
+    this.$store.dispatch("setPlayerDead");
+    this.$store.dispatch("setOppDead")
+   },
   methods: {
     
     startGame() {
@@ -49,12 +55,37 @@ export default {
         playerCards: this.playerCards
       }
       this.$store.dispatch("startGame", this.gameConfig);
+    },
+    attackOpponent() {
+      let attackConfig = {
+        playerId: this.game.players[0].id,
+        playerCardId: this.playerCardId,
+        opponentId: this.opponentId,
+        opponentCardId: this.opponentCardId,
+        gameId: this.game.id   
+      }
+      this.$store.dispatch('attackOpponent', attackConfig)
+    
     }
+    
   },
   computed: {
     game() {
       return this.$store.state.game;
-    }
+    },
+    playerCardId() {
+      return this.$store.state.playerCard.id
+    },
+    opponentCardId() {
+      return this.$store.state.oppCard.id
+    },
+    opponentId(){
+      return this.$store.state.game.players[1].id
+    },
+    
+    
+
+    // props: []
   },
   components: {
     OppCards,

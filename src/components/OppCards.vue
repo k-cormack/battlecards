@@ -1,10 +1,28 @@
 <template>
     <div class="opponent-cards">
-        <!-- <div class="opp-card" v-for="oppCard in oppCards" :key="oppCard.name">
-            {{oppCard.name}}
-        </div> -->
-        
+      <div class="row">
+        <div v-for="card in oppCards" :key="card.id" :class="{active: activeOppCard == card}">
+            <img src='..\assets\cardBack.jpg' @click="setOppCard(card)" style="width:160px; height:160px" v-if="!card.visible">
+            <div v-else>
+                <img :src='card.img' @click="setOppCard(card)" style="width:160px; height:160px">
+                <div>
+                {{card.name}}
+                </div>
+                <div>
+                Attack: {{card.attack}}
+                </div>
+                <div>
+                Defense: {{card.defense}}
+                </div>
+                <div>
+                Health: {{card.health}}
+                </div>
+            </div>
 
+
+            <!-- <img src='cardBack.img' @click="flipCard(card)"> -->
+        </div>    
+      </div>   
     </div>
 </template>
 
@@ -16,25 +34,36 @@ export default {
         return{}
     },
 
-    mounted() {
-        this.$store.dispatch("getOppCards")
-    },
+    // mounted() {
+    //     this.$store.dispatch("getOppCards")
+    // },
 
     computed: {
         oppCards() {
             return this.$store.state.game.players[1].hand
+        },
+        activeOppCard(){
+            return this.$store.state.oppCard
         }
     },
     methods: {
-        setOppCards(oppCards) {
-            this.$store.dispatch("setOppCards", oppCards)
+        setOppCard(oppCard) {
+            this.$store.dispatch("setOppCard", oppCard)
         }
     },
-    props: ["oppCards"]
+    // flipCard(card) {
+    //     this.$store.dispatch("flipCard", card.img)
+    // }
+    setOppDead(){
+      return this.$store.state.oppDead.value
+    }
+
 }
 
 </script>
 
 <style>
-
+.active {
+    outline: 1px solid red
+}
 </style>
