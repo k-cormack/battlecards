@@ -22,7 +22,8 @@ export default new Vuex.Store({
     gameId:{},
     // cardImg: {}
     playerDead: {},
-    oppDead: {}
+    oppDead: {},
+    winner: {}
   },
 
 
@@ -55,7 +56,18 @@ export default new Vuex.Store({
     },
     setOppDead(state, data) {
       state.oppDead = data
+    },
+    checkWinner(state, data){
+      state.winner = data 
+    },
+    clearGameId(state, data){
+      state.gameId = data
+      state.game = {}
+    },
+    clearWinner(state, data){
+      state.winner = data
     }
+
   },
 
 
@@ -75,6 +87,7 @@ export default new Vuex.Store({
         gameId = localGameId
         gameApi.get(gameId).then(res => {
           commit('setGame', res.data.data)
+          commit('checkWinner', res.data.data.winner)
           
         })
       }
@@ -103,6 +116,16 @@ export default new Vuex.Store({
     },
     setOppDead({commit, dispatch}, dead){
       commit('setOppDead', dead)
+    },
+    checkWinner({commit, dispatch}, data){
+      commit('checkWinner', data)
+    },
+    clearWinner({commit, dispatch}, data){
+      commit('clearWinner', data)
+    },
+    clearGameId({commit, dispatch}, data){
+      commit('clearGameId', data)
+      localStorage.setItem('gameId', '')
     }
   }
 })

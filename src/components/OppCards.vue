@@ -18,8 +18,6 @@
                 Health: {{card.health}}
                 </div>
             </div>
-
-
             <!-- <img src='cardBack.img' @click="flipCard(card)"> -->
         </div>    
       </div>   

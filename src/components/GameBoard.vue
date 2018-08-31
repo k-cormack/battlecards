@@ -2,9 +2,9 @@
   <div class="gameBoard container">
     <div v-if="!game.id">
       <h1>Create a Game</h1>
-      <form @submit.prevent="startGame">
+      <form @submit="startGame">
         <input type="text" v-model="gameConfig.playerName" placeholder="Name" required>
-        <input type="number" v-model="gameConfig.opponents" min="1" required>
+        <input type="number" v-model="gameConfig.opponents" min="1" max="1" required>
         <input type="number" v-model="gameConfig.set" min="1" max="4" required>
         <button type="submit">Go</button>
       </form>
@@ -17,10 +17,13 @@
           <!-- {{game.players[1].name}} -->                    
           <PlayerCards/>      
     </div>
-     <div v-if="playerCardId && opponentCardId">
-                <button @click="attackOpponent">Play your Card</button>
-            </div>
-    
+    <div v-if="playerCardId && opponentCardId && !game.winner">
+        <button @click="attackOpponent">Play your Card</button>
+    </div>
+    <div v-if="game.winner">
+        <h3>The Winner is "{{game.winner.name}}"</h3>
+        <button @click="newGame">New Game</button>
+    </div>
   </div>
     
   
@@ -64,10 +67,12 @@ export default {
         opponentCardId: this.opponentCardId,
         gameId: this.game.id   
       }
-      this.$store.dispatch('attackOpponent', attackConfig)
-    
+      this.$store.dispatch('attackOpponent', attackConfig)    
+    },
+    newGame(){
+      this.$store.dispatch('clearWinner', false),
+      this.$store.dispatch('clearGameId', '')
     }
-    
   },
   computed: {
     game() {
